@@ -1,0 +1,26 @@
+terraform {
+  required_version = ">=0.12"
+  required_providers {
+
+    azapi = {
+      source  = "azure/azapi"
+      version = "~>1.5"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~>3.0"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~>4.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~>3.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}

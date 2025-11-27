@@ -1,7 +1,6 @@
 variable "subscription_id" {
   description = "The Subscription ID where resources will be created"
   type        = string 
-  default = "478df61a-8283-46e5-8b0b-db8f4c9f8480"
 }
 
 variable "resource_group_name_prefix" {

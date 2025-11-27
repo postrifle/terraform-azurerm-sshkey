@@ -28,12 +28,13 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
   response_export_values = ["publicKey", "privateKey"]
 }
 
-resource "null_resource" "write_private_key" {
-  provisioner "local-exec" {
-    command = <<EOT
-    echo "${azapi_resource_action.ssh_public_key_gen.output.privateKey}" > ${path.module}/id_rsa_${random_pet.ssh_key_name.id}
-    chmod 600 ${path.module}/id_rsa_${random_pet.ssh_key_name.id}
-    EOT
-  }
+locals{
+  pk = sensitive(azapi_resource_action.ssh_public_key_gen.output.privateKey)
 }
 
+resource "null_resource" "write_private_key" {
+  provisioner "local-exec" {
+    command = "echo \"${local.pk}\" > id_rsa"
+    interpreter = ["PowerShell", "-Command"]
+  }
+}
